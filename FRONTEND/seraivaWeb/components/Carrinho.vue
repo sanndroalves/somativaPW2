@@ -16,10 +16,6 @@
  
   const sendEmprestimo = async (itensEmprestimoData) => {
 
-    for (const item of itensEmprestimoData) {
-      await sendItemEmprestimo(response.data._rawValue.id, item.id);
-    }
-
     try {
         const response = await useFetch(`https://somativapw2-production.up.railway.app/emprestimo/`, {
             method: 'POST',

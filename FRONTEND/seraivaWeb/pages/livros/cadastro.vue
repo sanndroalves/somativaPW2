@@ -1,8 +1,8 @@
 <script setup>
     const { data } = useAuth()  
     const idUsuario = ref(JSON.stringify(data.value.results[0].id))
-    const { data: dadosUsuario } = await useFetch(`http://localhost:8000/usuario/${idUsuario.value}`);
-    const { data: dadosCategorias } = await useFetch(`http://localhost:8000/categoria/`);
+    const { data: dadosUsuario } = await useFetch(`https://somativapw2-production.up.railway.app/usuario/${idUsuario.value}`);
+    const { data: dadosCategorias } = await useFetch(`https://somativapw2-production.up.railway.app/categoria/`);
     const Grupo = dadosUsuario._rawValue.grupo 
     const categorias = dadosCategorias._rawValue.results
     console.log("CA", categorias)
@@ -44,7 +44,7 @@ const sendLivro = async () => {
       idAutor: idUsuario.value
     };
     
-    try {const response = await useFetch(`http://localhost:8000/livro/`, {
+    try {const response = await useFetch(`https://somativapw2-production.up.railway.app/livro/`, {
       method: 'POST',
       body: livroData,
       key: 'livroPost'

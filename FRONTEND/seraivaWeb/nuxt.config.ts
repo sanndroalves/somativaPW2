@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   ],
   plugins: ['~/plugins/pinia.js'],
   auth: {
-    baseURL: 'http://localhost:8000',
+    baseURL: 'https://somativapw2-production.up.railway.app',
     provider: {
       type: 'local',
       endpoints: {

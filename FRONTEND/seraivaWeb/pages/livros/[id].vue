@@ -2,8 +2,8 @@
     import { useRoute } from 'vue-router'; 
     const route = useRoute();
     const livroId = route.params.id;
-    const { data: livro } = await useFetch(`http://127.0.0.1:8000/livro/${livroId}`);
-    const { data: autor } = await useFetch(`http://127.0.0.1:8000/usuario/${livro.value.idAutor}`);
+    const { data: livro } = await useFetch(`https://somativapw2-production.up.railway.app/livro/${livroId}`);
+    const { data: autor } = await useFetch(`https://somativapw2-production.up.railway.app/usuario/${livro.value.idAutor}`);
     console.log("AUTOR", autor.value)
 
     const formatLabel = (formato) => {

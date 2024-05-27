@@ -50,7 +50,7 @@
     if(dados.value != undefined){ 
         verifyLogin.value = true
         const idUsuario = ref(JSON.stringify(data.value.results[0].id))
-        const { data: dadosUsuario } = await useFetch(`http://localhost:8000/usuario/${idUsuario.value}`); 
+        const { data: dadosUsuario } = await useFetch(`https://somativapw2-production.up.railway.app/usuario/${idUsuario.value}`); 
         Grupo.value = dadosUsuario._rawValue.grupo 
 
         items.value.push({ label: 'Empréstimos', icon: 'pi pi-list', command: () => router.push('/emprestimos') });

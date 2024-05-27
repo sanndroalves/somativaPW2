@@ -21,7 +21,7 @@
     }
 
     try {
-        const response = await useFetch(`http://localhost:8000/emprestimo/`, {
+        const response = await useFetch(`https://somativapw2-production.up.railway.app/emprestimo/`, {
             method: 'POST',
             body: {
                 idUsuario: idUsuario,
@@ -50,7 +50,7 @@
 
 const sendItemEmprestimo = async (idEmprestimo, idLivro) => {
     try {
-        const response = await useFetch(`http://localhost:8000/itememprestimo/`, {
+        const response = await useFetch(`https://somativapw2-production.up.railway.app/itememprestimo/`, {
             method: 'POST',
             body: {
                 idEmprestimo: idEmprestimo,
@@ -60,7 +60,7 @@ const sendItemEmprestimo = async (idEmprestimo, idLivro) => {
         });
 
         if (!response.error.value) {  
-          const {data: dadosLivro } = await useFetch(`http://localhost:8000/livro/${response.data._rawValue.idLivro}`)
+          const {data: dadosLivro } = await useFetch(`https://somativapw2-production.up.railway.app/livro/${response.data._rawValue.idLivro}`)
           showSuccess(dadosLivro._rawValue.nome)
         } else {    
             console.log("res", response)

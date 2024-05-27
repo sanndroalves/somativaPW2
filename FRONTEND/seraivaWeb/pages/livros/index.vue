@@ -4,7 +4,7 @@
   const cartStore = useCartStore(); 
   const { addToCart, cartItems } = cartStore;
   
-  const { data: getLivros } = await useFetch('http://127.0.0.1:8000/livro?idStatus=A');
+  const { data: getLivros } = await useFetch('https://somativapw2-production.up.railway.app/livro?idStatus=A');
   const livros = ref(getLivros._rawValue.results); 
   
   const formatLabel = (formato) => {

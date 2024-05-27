@@ -27,11 +27,21 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['https://somativapw2-production.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ['https://somativapw2-production.up.railway.app']
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ORIGIN_ALLOW_ALL = True
 # Application definition
+
+CORS_ALLOWED_ORIGINS = [
+    "https://somativapw2-production.up.railway.app",
+    "https://somativa-pw-2.vercel.app/"
+]
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    "https://somativapw2-production.up.railway.app",
+    "https://somativa-pw-2.vercel.app/",
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -126,9 +136,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'staticfiles/'
+STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [BASE_DIR / 'staticfiles']
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 

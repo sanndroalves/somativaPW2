@@ -27,20 +27,20 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['https://somativapw2-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://somativapw2-production.up.railway.app', 'https://somativa-pw-2.vercel.app']
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ORIGIN_ALLOW_ALL = True
-# Application definition
+# Application definition 
 
 CORS_ALLOWED_ORIGINS = [
     "https://somativapw2-production.up.railway.app",
-    "https://somativa-pw-2.vercel.app/"
+    "https://somativa-pw-2.vercel.app"
 ]
 
 CORS_ALLOWED_ORIGIN_REGEXES = [
     "https://somativapw2-production.up.railway.app",
-    "https://somativa-pw-2.vercel.app/",
+    "https://somativa-pw-2.vercel.app",
 ]
 
 INSTALLED_APPS = [

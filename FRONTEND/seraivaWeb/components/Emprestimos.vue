@@ -3,10 +3,10 @@ import { ref } from 'vue';
 
 const { data } = useAuth()  
 const idUsuario = ref(JSON.stringify(data.value.results[0].id))
-const { data: dadosUsuario } = await useFetch(`http://localhost:8000/usuario/${idUsuario.value}`); 
+const { data: dadosUsuario } = await useFetch(`https://somativapw2-production.up.railway.app/usuario/${idUsuario.value}`); 
 const Grupo = dadosUsuario._rawValue.grupo 
 
-const { data: emprestimos } = await useFetch(`http://localhost:8000/emprestimo?idUsuario=${idUsuario.value}`);
+const { data: emprestimos } = await useFetch(`https://somativapw2-production.up.railway.app/emprestimo?idUsuario=${idUsuario.value}`);
 const getEmprestimos = emprestimos._rawValue.results;
 
 const formatDate = (dateString) => {
@@ -26,11 +26,11 @@ const searchLoans = async () => {
   searched.value = false;
   loans.value = [];
 
-  const {data: dadosUsuarioPesquisa } = await useFetch(`http://localhost:8000/usuario?email=${email.value}`)
+  const {data: dadosUsuarioPesquisa } = await useFetch(`https://somativapw2-production.up.railway.app/usuario?email=${email.value}`)
   idPesquisa.value = dadosUsuarioPesquisa._rawValue.results[0].id
 
   try {
-    const response = await useFetch(`http://localhost:8000/emprestimo?idUsuario=${idPesquisa.value}`, {
+    const response = await useFetch(`https://somativapw2-production.up.railway.app/emprestimo?idUsuario=${idPesquisa.value}`, {
       method: 'GET'
     });
 
@@ -56,7 +56,7 @@ const addDevolucao = async (loan) => {
   };
   try {
     const formattedDate = formatDateBackEnd(loan.dtDevolucao);
-    const response = await useFetch(`http://localhost:8000/emprestimo/${loan.id}/`, {
+    const response = await useFetch(`https://somativapw2-production.up.railway.app/emprestimo/${loan.id}/`, {
       method: 'PATCH',
       body: { dtDevolucao: formattedDate, idUsuario: loan.idUsuario, qtdLivros: loan.qtdLivros  },
       key: 'updateDevolucao'

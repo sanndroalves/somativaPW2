@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import *
 from .serializers import *
+from .customFilters import *
 import datetime 
 
 from rest_framework import filters  
@@ -10,6 +11,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError
 
 class CustomModelViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
@@ -23,7 +26,9 @@ class CustomModelViewSet(viewsets.ModelViewSet):
 class CustomUserView(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
-    permission_classes = (IsAuthenticated,)
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = CustomUserFilter
+    # permission_classes = (IsAuthenticated,)
 
 class CategoriaView(viewsets.ModelViewSet):
     queryset = Categoria.objects.all()
@@ -32,10 +37,14 @@ class CategoriaView(viewsets.ModelViewSet):
 class LivroView(viewsets.ModelViewSet):
     queryset = Livro.objects.all()
     serializer_class = LivroSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = LivroFilter
 
 class EmprestimoView(viewsets.ModelViewSet):
     queryset = Emprestimo.objects.all()
     serializer_class = EmprestimoSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = EmprestimoFilter
 
     def create(self, request, *args, **kwargs):
         # 1 - verifica se tem empréstimo atrasado
@@ -86,6 +95,24 @@ class EmprestimoView(viewsets.ModelViewSet):
                     return Response(serializer.errors, status=400)
 
         return Response({"error": "Usuário não pode emprestar mais livros."}, status=400)
+
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        dtDevolucao = request.data.get('dtDevolucao', None)
+        
+        if dtDevolucao:
+            idUsuario = instance.idUsuario
+            
+            usuario_info = CustomUser.objects.filter(email=idUsuario).first() 
+            usuario_info.qtdLivros -= instance.qtdLivros
+            if usuario_info.qtdLivros < 0:
+                raise ValidationError("qtLivros não pode ser negativa.")
+            
+            usuario_info.save()
+
+        response = super().partial_update(request, *args, **kwargs)
+        
+        return response
 
 class itemEmprestimoView(viewsets.ModelViewSet):
     queryset = itemEmprestimo.objects.all()

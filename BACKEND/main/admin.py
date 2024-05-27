@@ -21,7 +21,7 @@ class AdminCategoria(admin.ModelAdmin):
 admin.site.register(Categoria,AdminCategoria)
 
 class AdminLivro(admin.ModelAdmin):
-    list_display = ['id', 'nome']
+    list_display = ['id', 'nome', 'qtdDisponivel']
     list_display_links = ('id', 'nome',)
     search_fields = ('id',)
     list_per_page = 10
@@ -35,3 +35,11 @@ class AdminEmprestimo(admin.ModelAdmin):
     list_per_page = 10
 
 admin.site.register(Emprestimo,AdminEmprestimo)
+
+class AdminItemEmprestimo(admin.ModelAdmin):
+    list_display = ['id', 'idEmprestimo', 'idLivro']
+    list_display_links = ('id', 'idEmprestimo',)
+    search_fields = ('id',)
+    list_per_page = 10
+
+admin.site.register(itemEmprestimo,AdminItemEmprestimo)

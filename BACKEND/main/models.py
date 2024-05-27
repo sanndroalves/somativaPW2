@@ -28,8 +28,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     qtdLivros = models.IntegerField(default=0)  
     grupo = models.CharField(max_length=100, choices=GRUPOS, default="US")  
 
-    groups = models.ManyToManyField(Group, related_name='custom_user_groups', null=True)
-    user_permissions = models.ManyToManyField(Permission, related_name='custom_user_permissions', null=True)
+    groups = models.ManyToManyField(Group, related_name='custom_user_groups',  null=True, blank=True)
+    user_permissions = models.ManyToManyField(Permission, related_name='custom_user_permissions', null=True, blank=True)
 
     objects = Gerenciador()
 
@@ -58,7 +58,7 @@ STATUS_LIVRO = [
 
 class Livro(models.Model):
     nome = models.CharField(max_length=100)
-    img = models.CharField(max_length=100)
+    img = models.CharField(max_length=500)
     estrelas = models.IntegerField()
     valor = models.DecimalField(max_digits=20, decimal_places=2) 
     qtdDisponivel = models.IntegerField()
@@ -69,6 +69,7 @@ class Livro(models.Model):
     idFormato = models.CharField(max_length=100, choices=FORMATO, default="E") 
     idStatus = models.CharField(max_length=100, choices=STATUS_LIVRO, default="P") 
     idCategoria = models.ForeignKey(Categoria, related_name="Categoria_Livro", on_delete=models.CASCADE, blank=True, null=True)
+    idAutor = models.ForeignKey(CustomUser, related_name="Autor_Livro", on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.nome 

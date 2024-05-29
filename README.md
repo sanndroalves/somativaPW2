@@ -1,5 +1,8 @@
 # Somativa SeraivaWEB
 Arquivos da somativa.
+# Deploys:
+- **BACKEND**: https://somativapw2-production.up.railway.app/
+- **FRONTEND**: https://somativa-pw-2.vercel.app/
 
 ## Login credenciais:
 - **AUTOR**:

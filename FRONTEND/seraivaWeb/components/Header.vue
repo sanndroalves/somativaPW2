@@ -12,6 +12,8 @@
           <Avatar icon="pi pi-user" class="user-avatar" @click="toggleDropdown" />
           <div class="dropdown-content" v-show="showDropdown">
             <ul>
+                <li>{{Nome}}</li>
+                <li>---</li>
                 <li @click="addBook" v-if="Grupo == 'AU' || Grupo == 'AD'" @mouseover="highlightItem" @mouseout="resetItem" ref="addBook">Adicionar Livro</li>
                 <li @click="submitLogout" @mouseover="highlightItem" @mouseout="resetItem" ref="logout">Sair</li>
             </ul>
@@ -46,12 +48,14 @@
     const { data } = useAuth() 
     const dados = ref( data.value) 
     const Grupo = ref()
+    const Nome = ref()
     const verifyLogin = ref(false)
     if(dados.value != undefined){ 
         verifyLogin.value = true
         const idUsuario = ref(JSON.stringify(data.value.results[0].id))
         const { data: dadosUsuario } = await useFetch(`https://somativapw2-production.up.railway.app/usuario/${idUsuario.value}`); 
         Grupo.value = dadosUsuario._rawValue.grupo 
+        Nome.value = dadosUsuario._rawValue.nome 
 
         items.value.push({ label: 'Empréstimos', icon: 'pi pi-list', command: () => router.push('/emprestimos') });
     }
